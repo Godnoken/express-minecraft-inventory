@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each iteminstance in iteminstance_list
+      li
+        a(href=iteminstance.url) #{iteminstance._id}
+        |  (#{iteminstance.item.name})
+
+    else
+      li There are no iteminstances.

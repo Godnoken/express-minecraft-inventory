@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    each inventor in inventor_list
+      li
+        a(href=inventor.url) #{inventor.name}
+        |  (#{inventor.birth_formatted} - #{inventor.death_formatted})
+
+    else
+      li There are no inventors.

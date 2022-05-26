@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1 Item: #{item.name}
+
+  p #[strong Inventor:]
+    a(href=item.inventor.url) #{item.inventor.name}
+  p #[strong Description:] #{item.description}
+  p #[strong Value:] #{item.value}
+  p #[strong Type:]
+    each val, index in item.type
+      a(href=val.url) #{val.name}
+      if index < item.type.length - 1
+        |,
+
+  div(style='margin-left:20px;margin-top:20px')
+    h4 Existing in the wild
+
+    each val in item_instances
+      hr
+
+      p #[strong Acquired:] #{val.days_since_acquired === 1 ? val.days_since_acquired + " day ago" : val.days_since_acquired + " days ago"}
+      p #[strong Crafted:] #{val.crafted ? "Yes" : "No" }
+      p #[strong Id:]
+        a(href=val.url) #{val._id}
+
+    else
+      p There are no copies of this item in the library.
+
+  hr
+  p
+    a(href=item.url+'/delete') Delete item
+  p
+    a(href=item.url+'/update') Update item

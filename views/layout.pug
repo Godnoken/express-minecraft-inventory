@@ -1,7 +1,36 @@
 doctype html
-html
+html(lang='en')
   head
     title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div
+      div
+        div
+          block sidebar
+            ul
+              li
+                a(href='/inventory') Home
+              li
+                a(href='/inventory/items') All items
+              li
+                a(href='/inventory/inventors') All inventors
+              li
+                a(href='/inventory/types') All types
+              li
+                a(href='/inventory/iteminstances') All item-instances
+              li
+                hr
+              li
+                a(href='/inventory/inventor/create') Create new inventor
+              li
+                a(href='/inventory/type/create') Create new type
+              li
+                a(href='/inventory/item/create') Create new item
+              li
+                a(href='/inventory/iteminstance/create') Create new item instance (copy)
+
+        div(class='col-sm-10')
+          block content

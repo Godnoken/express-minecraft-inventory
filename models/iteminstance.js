@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
+
 
 const Schema = mongoose.Schema;
 
@@ -11,7 +13,13 @@ const ItemInstanceSchema = new Schema({
 ItemInstanceSchema
     .virtual("url")
     .get(function () {
-  return "/iteminstance/" + this._id;
+  return "/inventory/iteminstance/" + this._id;
 });
+
+ItemInstanceSchema
+    .virtual("days_since_acquired")
+    .get(function () {
+      return Math.floor(DateTime.now().diff(DateTime.fromJSDate(this.acquired)).as("day")) //format 'YYYY-MM-DD'
+    });
 
 module.exports = mongoose.model("ItemInstance", ItemInstanceSchema);

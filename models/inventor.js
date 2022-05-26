@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { DateTime } = require("luxon");
 
 const Schema = mongoose.Schema;
 
@@ -12,21 +13,33 @@ const InventorSchema = new Schema({
 InventorSchema
     .virtual("url")
     .get(function () {
-        return "/inventor/" + this._id;
+        return "/inventory/inventor/" + this._id;
     });
 
 InventorSchema
     .virtual("lifespan")
     .get(function () {
         let lifetime_string = "";
-        if (this.date_of_birth) {
-            lifetime_string = this.date_of_birth.getYear().toString();
+        if (this.birth) {
+            lifetime_string = this.birth.getYear().toString();
         }
         lifetime_string += " - ";
-        if (this.date_of_death) {
-            lifetime_string += this.date_of_death.getYear();
+        if (this.death) {
+            lifetime_string += this.death.getYear();
         }
         return lifetime_string;
+    });
+
+InventorSchema
+    .virtual('birth_formatted')
+    .get(function() {
+        return DateTime.fromJSDate(this.birth).toISODate(); //format 'YYYY-MM-DD'
+    });
+
+InventorSchema
+    .virtual('death_formatted')
+    .get(function() {
+        return DateTime.fromJSDate(this.death).toISODate(); //format 'YYYY-MM-DD'
     });
 
 module.exports = mongoose.model("Inventor", InventorSchema);
