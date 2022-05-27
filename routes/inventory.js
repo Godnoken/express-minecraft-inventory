@@ -5,6 +5,10 @@ const inventor_controller = require("../controllers/inventorController");
 const item_controller = require("../controllers/itemController");
 const item_instance_controller = require("../controllers/itemInstanceController");
 const type_controller = require("../controllers/typeController");
+const index_controller = require("../controllers/indexController");
+
+
+router.get('/', index_controller.index);
 
 /// ITEM ROUTES ///
 
