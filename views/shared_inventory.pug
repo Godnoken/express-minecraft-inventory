@@ -1,0 +1,53 @@
+article(class="shared-inventory-container")
+  p(class="items-title") Items
+  form(class="search-bar-container" method="POST" action="")
+    input(class="search-bar")
+  div(class="items-container")
+    - for(let i = 0; i < 70; i++){
+        div(class="shared-square" data-index=i)
+            if item_list[i]
+                svg(class="item-svg" viewBox="0 -0.5 32 32")
+                    path(d="M11 1h8M9 2h12M8 3h14M8 4h15M7 5h6m4 0h7M7 6h5m6 0h6M7 7h4m8 0h5M7 8h4m8 0h5m-6 1h6m-7 1h6m-7 1h6m-7 1h6m-7 1h6m-6 1h5m-5 1h5m-5 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 4h4m-4 1h4m-4 1h4m-4 1h4")
+    - }
+    
+script.
+    let itemList = !{JSON.stringify(item_list)}
+    const itemsContainer = document.querySelector(".items-container");
+    itemsContainer.addEventListener("mouseover", readItemInfo)
+
+    const toolTipContainer = document.createElement("div");
+    const name = document.createElement("h2");
+    const description = document.createElement("p");
+    const value = document.createElement("p");
+    const inventor = document.createElement("p");
+    const type = document.createElement("p");
+    
+    toolTipContainer.classList.add("tool-tip-container");
+    name.classList.add("tool-tip-title");
+
+    function readItemInfo(event) {
+
+      if (itemList[event.target.dataset.index]) {
+        const item = itemList[event.target.dataset.index];
+        
+        toolTipContainer.style.left = event.x + 15 + "px";
+        toolTipContainer.style.top = event.y + "px";
+
+        name.textContent = item.name;
+        description.textContent = item.description;
+        value.textContent = "Value: " + item.value;
+        inventor.textContent = item.inventor.name;
+        type.textContent = item.type[0].name;
+        
+        toolTipContainer.appendChild(name);
+        toolTipContainer.appendChild(description);
+        toolTipContainer.appendChild(value);
+        toolTipContainer.appendChild(type);
+        toolTipContainer.appendChild(inventor);
+        document.body.appendChild(toolTipContainer);
+
+        toolTipContainer.style.display = "flex";
+      } else {
+        toolTipContainer.style.display = "none";
+      }
+    }

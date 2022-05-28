@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
 
+
 const mongoDBUrl = "mongodb+srv://admin1:admin1@cluster0.wmk8d.mongodb.net/inventory?retryWrites=true&w=majority";
 
 const mongoDB = process.env.MONGODB_URI || mongoDBUrl;

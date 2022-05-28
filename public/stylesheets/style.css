@@ -34,6 +34,7 @@ p {
 
 .main {
   width: 100%;
+  max-width: 800px;
   display: grid;
   grid-template-columns: 1fr 8px 1.4fr;
   column-gap: 2px;
@@ -107,10 +108,16 @@ p {
   background-color: var(--secondary-color);
 }
 
+.item-svg {
+  height: 75%;
+  stroke: rgb(26, 26, 26);
+  pointer-events: none;
+}
+
 .separator-main {
   margin: auto 0 8px 0;
   width: 100%;
-  height: 80%;
+  height: 75%;
   border-top: 4px solid var(--main-color);
   border-bottom: 4px solid #7c7c7c;
   background-color: var(--secondary-color);
@@ -168,7 +175,7 @@ p {
 
 .crafting-title {
   color: rgb(95, 95, 95);
-  font-size: 3.2vw;
+  font-size: 20px;
 }
 
 .craft-items {
@@ -208,4 +215,41 @@ p {
   border-top: 2px solid rgb(255, 255, 255);
   border-right: 2px solid rgb(100, 100, 100);
   border-bottom: 2px solid rgb(100, 100, 100);
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tool-tip-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  max-width: 500px;
+  border-radius: 4px;
+  padding: 10px 16px;
+  background-color: black;
+  pointer-events: none;
+}
+
+.tool-tip-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  border-left: 2px solid rgb(27, 27, 109);
+  border-top: 2px solid rgb(27, 27, 109);
+  border-right: 2px solid rgb(27, 27, 109);
+  border-bottom: 2px solid rgb(27, 27, 109);
+  pointer-events: none;
+  border-radius: 8px;
+}
+
+.tool-tip-title {
+  margin: 0;
+  font-size: 16px;
+  color: #00B7FF;
 }
