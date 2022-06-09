@@ -1,7 +1,7 @@
 article(class="shared-inventory-container")
   p(class="items-title") Items
   form(class="search-bar-container" method="POST" action="")
-    input(class="search-bar")
+    input(class="search-bar" name='search_item')
   div(class="items-container")
     - for(let i = 0; i < 70; i++){
         div(class="shared-square" data-index=i)
@@ -9,21 +9,32 @@ article(class="shared-inventory-container")
                 svg(class="item-svg" viewBox="0 -0.5 32 32")
                     path(d="M11 1h8M9 2h12M8 3h14M8 4h15M7 5h6m4 0h7M7 6h5m6 0h6M7 7h4m8 0h5M7 8h4m8 0h5m-6 1h6m-7 1h6m-7 1h6m-7 1h6m-7 1h6m-6 1h5m-5 1h5m-5 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 4h4m-4 1h4m-4 1h4m-4 1h4")
     - }
-    
+
 script.
     let itemList = !{JSON.stringify(item_list)}
+
+    console.log(itemList)
+    
     const itemsContainer = document.querySelector(".items-container");
-    itemsContainer.addEventListener("mouseover", readItemInfo)
+    const searchInput = document.querySelector(".search-bar");
+    const searchForm = document.querySelector(".search-bar-container");
+
+    itemsContainer.addEventListener("mouseover", readItemInfo);
+    searchInput.addEventListener("change", () => searchForm.submit());
 
     const toolTipContainer = document.createElement("div");
     const name = document.createElement("h2");
     const description = document.createElement("p");
+    const valueContainer = document.createElement("div");
     const value = document.createElement("p");
+    const emeraldImg = document.createElement("img");
     const inventor = document.createElement("p");
     const type = document.createElement("p");
     
     toolTipContainer.classList.add("tool-tip-container");
     name.classList.add("tool-tip-title");
+    valueContainer.classList.add("tool-tip-value-container");
+    emeraldImg.classList.add("tool-tip-emerald");
 
     function readItemInfo(event) {
 
@@ -35,13 +46,18 @@ script.
 
         name.textContent = item.name;
         description.textContent = item.description;
-        value.textContent = "Value: " + item.value;
+        value.textContent  = item.value;
         inventor.textContent = item.inventor.name;
         type.textContent = item.type[0].name;
+
+        emeraldImg.srcset = "images/emerald.webp";
+        emeraldImg.src = "images/emerald.png";
         
         toolTipContainer.appendChild(name);
         toolTipContainer.appendChild(description);
-        toolTipContainer.appendChild(value);
+        toolTipContainer.appendChild(valueContainer);
+        valueContainer.appendChild(value);
+        valueContainer.appendChild(emeraldImg);
         toolTipContainer.appendChild(type);
         toolTipContainer.appendChild(inventor);
         document.body.appendChild(toolTipContainer);

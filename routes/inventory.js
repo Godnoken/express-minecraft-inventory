@@ -10,6 +10,8 @@ const index_controller = require("../controllers/indexController");
 
 router.get('/', index_controller.index);
 
+router.post('/', index_controller.item_search);
+
 /// ITEM ROUTES ///
 
 // GET request for creating a item. NOTE This must come before routes that display item (uses id).

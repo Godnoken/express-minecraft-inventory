@@ -253,3 +253,18 @@ p {
   font-size: 16px;
   color: #00B7FF;
 }
+
+.tool-tip-value-container {
+  display: flex;
+  align-items: center;
+}
+
+.tool-tip-value-container p {
+  align-self: flex-end;
+}
+
+.tool-tip-emerald {
+  width: 20px;
+  height: 20px;
+  margin-top: auto;
+}
