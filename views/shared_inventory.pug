@@ -1,11 +1,11 @@
 article(class="shared-inventory-container")
   p(class="items-title") Items
-  form(class="search-bar-container" method="POST" action="")
-    input(class="search-bar" name='search_item')
+  div(class="search-bar-container")
+    input(class="search-bar" name='search_item' value=(current_search) autocomplete="off")
   div(class="items-container")
-    - for(let i = 0; i < 70; i++){
-        div(class="shared-square" data-index=i)
-            if item_list[i]
+    - for(let i = 0; i < item_list.length; i++){
+        div(class=(item_list[i] ? "shared-square pointer" : "shared-square") data-index=i data-id=(item_list[i] ? item_list[i]._id : ""))
+           if item_list[i]
                 svg(class="item-svg" viewBox="0 -0.5 32 32")
                     path(d="M11 1h8M9 2h12M8 3h14M8 4h15M7 5h6m4 0h7M7 6h5m6 0h6M7 7h4m8 0h5M7 8h4m8 0h5m-6 1h6m-7 1h6m-7 1h6m-7 1h6m-7 1h6m-6 1h5m-5 1h5m-5 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 4h4m-4 1h4m-4 1h4m-4 1h4")
     - }
@@ -13,57 +13,56 @@ article(class="shared-inventory-container")
 script.
     let itemList = !{JSON.stringify(item_list)}
 
-    console.log(itemList)
-    
     const itemsContainer = document.querySelector(".items-container");
     const searchInput = document.querySelector(".search-bar");
     const searchForm = document.querySelector(".search-bar-container");
 
-    itemsContainer.addEventListener("mouseover", readItemInfo);
-    searchInput.addEventListener("change", () => searchForm.submit());
+    itemsContainer.addEventListener("mouseover", () => readItemInfo(event, itemList));
+    itemsContainer.addEventListener("click", addItem);
+    searchInput.addEventListener("change", () => searchItem());
 
-    const toolTipContainer = document.createElement("div");
-    const name = document.createElement("h2");
-    const description = document.createElement("p");
-    const valueContainer = document.createElement("div");
-    const value = document.createElement("p");
-    const emeraldImg = document.createElement("img");
-    const inventor = document.createElement("p");
-    const type = document.createElement("p");
-    
-    toolTipContainer.classList.add("tool-tip-container");
-    name.classList.add("tool-tip-title");
-    valueContainer.classList.add("tool-tip-value-container");
-    emeraldImg.classList.add("tool-tip-emerald");
+    // Make post request to add iteminstance to personal inventory
+    function addItem(event) {
+       if (itemList[event.target.dataset.index]) {
 
-    function readItemInfo(event) {
+         fetch("inventory/iteminstance/create", {
+           method: "POST",
+           headers: {'Content-Type': 'application/json'},
+           body: JSON.stringify({ id: event.target.dataset.id })
+         })
+         .then(response => response.json())
+         .then(data => {
+           addItemInstance(data.item_instance);
+         })
+         .catch((error) => console.log(error))
+       }
+    }
 
-      if (itemList[event.target.dataset.index]) {
-        const item = itemList[event.target.dataset.index];
-        
-        toolTipContainer.style.left = event.x + 15 + "px";
-        toolTipContainer.style.top = event.y + "px";
+    function searchItem() {
+      const searchedItemList = itemList.filter((item) => item.name.toLowerCase().includes(searchInput.value.toLowerCase()))
 
-        name.textContent = item.name;
-        description.textContent = item.description;
-        value.textContent  = item.value;
-        inventor.textContent = item.inventor.name;
-        type.textContent = item.type[0].name;
+      const itemsContainer = document.querySelector(".items-container");
 
-        emeraldImg.srcset = "images/emerald.webp";
-        emeraldImg.src = "images/emerald.png";
-        
-        toolTipContainer.appendChild(name);
-        toolTipContainer.appendChild(description);
-        toolTipContainer.appendChild(valueContainer);
-        valueContainer.appendChild(value);
-        valueContainer.appendChild(emeraldImg);
-        toolTipContainer.appendChild(type);
-        toolTipContainer.appendChild(inventor);
-        document.body.appendChild(toolTipContainer);
+      while (itemsContainer.lastChild) {
+        itemsContainer.removeChild(itemsContainer.lastChild);
+      }
 
-        toolTipContainer.style.display = "flex";
-      } else {
-        toolTipContainer.style.display = "none";
+      for (let i = 0; i < searchedItemList.length; i++) {
+        const square = document.createElement("square");
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+        square.classList.add("shared-square", "pointer");
+        svg.classList.add("item-svg");
+
+        svg.setAttribute("viewBox", "0 -0.5 32 32");
+        path.setAttribute("d", "M11 1h8M9 2h12M8 3h14M8 4h15M7 5h6m4 0h7M7 6h5m6 0h6M7 7h4m8 0h5M7 8h4m8 0h5m-6 1h6m-7 1h6m-7 1h6m-7 1h6m-7 1h6m-6 1h5m-5 1h5m-5 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 4h4m-4 1h4m-4 1h4m-4 1h4");
+
+        square.dataset.id = searchedItemList[i]._id;
+        square.dataset.index = i;
+
+        itemsContainer.appendChild(square);
+        square.appendChild(svg);
+        svg.appendChild(path);
       }
     }
