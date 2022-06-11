@@ -1,7 +1,7 @@
 function readItemInfo(event, list) {
   const currentToolTipContainer = document.querySelector(".tool-tip-container");
   if (currentToolTipContainer) currentToolTipContainer.remove();
-
+    
   if (list[event.target.dataset.index]) {
     const toolTipContainer = document.createElement("div");
     const name = document.createElement("h2");
