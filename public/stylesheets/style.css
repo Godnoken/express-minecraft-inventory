@@ -7,7 +7,9 @@
   --main-color: #e1e2e4;
   --secondary-color: #aaaaaa;
 
-  --shared-inventory-height: 0px;
+  --shared-inventory-height: 0;
+  /* Firefox issue */
+  --scrollbar-padding: 0.8rem;
 }
 
 html {
@@ -98,14 +100,26 @@ h1 {
   border: 0.3rem solid black;
 }
 
-.search-bar {
+/* Using ::after on container instead of
+   border on input due to scaling issues
+*/
+.search-bar-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
+  border-top: 0.3rem solid #5d5d5d;
+  border-bottom: 0.3rem solid rgb(212, 212, 212);
+}
+
+.search-bar {
+  height: 100%;
+  width: 99%;
   padding: 0.8rem 0 0.8rem 0.6rem;
   outline: none;
   border: none;
-  border-top: 0.3rem solid #5d5d5d;
-  border-bottom: 0.3rem solid rgb(212, 212, 212);
   font-family: Minecraft;
   font-size: 1.8rem;
   background-color: #797979;
@@ -115,13 +129,17 @@ h1 {
 
 .items-container {
   position: relative;
+  max-height: 70vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
   grid-template-rows: inherit;
-  padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+  padding: 0.3rem var(--scrollbar-padding) 0.3rem 0.3rem;
   background-color: var(--secondary-color);
   overflow-y: scroll;
   overflow-x: hidden;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--main-color);
 }
 
 .items-container::after {
@@ -129,7 +147,7 @@ h1 {
   position: absolute;
   left: 0;
   top: 0;
-  width: calc(100% - 0.5rem);
+  width: calc(100% - var(--scrollbar-padding) + 0.3rem);
   height: var(--shared-inventory-height);
   border: 0.3rem solid gray;
   background-color: transparent;
@@ -153,6 +171,7 @@ h1 {
 
 .personal-inventory-container {
   height: 80%;
+  max-height: 70vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -227,6 +246,8 @@ h1 {
   overflow-x: hidden;
   border: 0.2rem solid transparent;
   padding: 0 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--main-color);
 }
 
 .square {
@@ -282,7 +303,7 @@ h1 {
   height: 0.3rem;
   left: -0.3rem;
   bottom: -0.3rem;
-  background-color: rgb(178,178,178);
+  background-color: rgb(152,152,152);
 }
 
 .shared-square::after {
@@ -292,7 +313,7 @@ h1 {
   height: 0.3rem;
   right: -0.3rem;
   top: -0.3rem;
-  background-color: rgb(178,178,178);
+  background-color: rgb(152,152,152);
 }
 
 .tool-tip-container {
@@ -300,11 +321,12 @@ h1 {
   display: flex;
   flex-direction: column;
   row-gap: 0.4rem;
-  max-width: 50rem;
+  max-width: 14rem;
   border-radius: 0.4rem;
   padding: 1rem 1.6rem;
   background-color: black;
   pointer-events: none;
+  word-wrap: break-word;
 }
 
 .tool-tip-container::after {
@@ -352,6 +374,7 @@ h1 {
   outline: 0.5rem solid var(--main-color);
   cursor: grab;
   background-color: var(--main-color);
+  scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar-track {
@@ -360,6 +383,7 @@ h1 {
   border-top: 0.3rem solid rgb(100, 100, 100);
   border-right: 0.3rem solid rgb(255, 255, 255);
   border-bottom: 0.3rem solid rgb(255, 255, 255);
+  scrollbar-width: thin;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -368,10 +392,20 @@ h1 {
   border-right: 0.3rem solid rgb(100, 100, 100);
   border-bottom: 0.3rem solid rgb(100, 100, 100);
   background-color: var(--main-color);
+  scrollbar-width: thin;
 }
 
 @media (max-width: 1000px) {
+  .main-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+  }
+
   .main {
+    height: 100%;
     grid-template-columns: 100%;
     grid-template-rows: max-content 40% 0.8rem 40%;
     row-gap: 0.2rem;
@@ -398,14 +432,6 @@ h1 {
 @media (max-width: 650px) {
   body {
     padding: 0rem;
-  }
-
-  .main-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100vw;
   }
 
   .main {

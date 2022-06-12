@@ -60,6 +60,16 @@ function readItemInfo(event, list) {
     toolTipContainer.appendChild(type);
     toolTipContainer.appendChild(inventor);
     toolTipContainer.appendChild(acquired);
-    document.body.appendChild(toolTipContainer);
+    document.querySelector(".main").appendChild(toolTipContainer);
+
+    // If tooltip goes out of bounds, position it back inside the window
+    const toolTipRect = toolTipContainer.getBoundingClientRect();
+    const outOfBoundsY = toolTipRect.y + (toolTipRect.height * 1.5) > window.innerHeight;
+    const outOfBoundsX = toolTipRect.x + (toolTipRect.width * 1.5) > window.innerWidth;
+
+    if (outOfBoundsX || outOfBoundsY) {
+        toolTipContainer.style.transform = `translate(${outOfBoundsX ? -toolTipRect.width - 15 : 0}px, ${outOfBoundsY ? -toolTipRect.height : 0}px)`;
+    }
+
   }
 }
