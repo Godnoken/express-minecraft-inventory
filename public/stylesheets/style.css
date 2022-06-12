@@ -36,9 +36,15 @@ a {
 }
 
 p,
-a {
+a,
+button,
+label {
   margin: 0;
   font-size: clamp(12px, 1.6 * (1vw + 1vh) / 2, 100px);
+}
+
+label {
+  color:rgb(95, 95, 95);
 }
 
 h1 {
@@ -203,11 +209,8 @@ h1 {
   height: 60%;
   display: flex;
   align-items: center;
+  column-gap: 0.8rem;
   padding: 0 0.4rem;
-}
-
-.inventory-info-container {
-  width: 45%;
 }
 
 .crafting-container {
@@ -361,9 +364,45 @@ h1 {
 }
 
 .tool-tip-emerald {
-  width: 2rem;
-  height: 2rem;
-  margin-top: auto;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.crud-container {
+  grid-column: 1/4;
+  height: 100%;
+  width: 45%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1.4rem;
+  opacity: 0;
+}
+
+.crud-update-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+}
+
+.crud-item {
+  color: #00b7ff;
+}
+
+.crud-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  user-select: none;
+}
+
+.crud-button {
+  background-color: transparent;
+  border: none;
+  color: rgb(95, 95, 95);
+  font-family: Minecraft;
+  cursor: pointer;
 }
 
 .pointer {
@@ -408,6 +447,10 @@ h1 {
   .shared-square:hover::after,
   .square:hover::after {
     background-color: white;
+  }
+
+  .crud-button:hover {
+    color: var(--secondary-color);
   }
 }
 

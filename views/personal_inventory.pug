@@ -1,6 +1,6 @@
 article(class="personal-inventory-container")
   div(class="personal-inventory-top")
-    div(class="inventory-info-container")
+    include crud-operations
     div(class="crafting-container")
       p(class="crafting-title") Crafting
       div(class="crafting")
@@ -22,6 +22,7 @@ article(class="personal-inventory-container")
 script.
     let itemInstancesList = !{JSON.stringify(item_instances_list)}
 
-    const itemInstancesContainer = document.querySelector(".personal-inventory");
+    const itemInstancesContainer = document.querySelector(".personal-inventory-container");
 
     itemInstancesContainer.addEventListener("mouseover", () => readItemInfo(event, itemInstancesList));
+    itemInstancesContainer.addEventListener("click", showCrud);

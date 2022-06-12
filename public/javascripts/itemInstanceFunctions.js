@@ -20,3 +20,27 @@ function addItemInstance(itemInstance) {
     square.appendChild(svg);
     svg.appendChild(path);
 }
+
+function showCrud(event) {
+
+    if (itemInstancesList[event.target.dataset.index] && event.target.classList.contains("square") || event.target.classList.contains("shared-square")) {
+        const crudContainer = document.querySelector(".crud-container");
+        const crudItem = document.querySelector(".crud-item");
+        const crudButtons = document.querySelector(".crud-buttons");
+        const crudUpdateContainer = document.querySelector(".crud-update-container");
+
+        if (crudUpdateContainer) crudUpdateContainer.remove();
+    
+        const item = itemList.find(item => item._id === itemInstancesList[event.target.dataset.index].item);
+
+        crudItem.dataset.index = event.target.dataset.index;
+        crudItem.dataset.id = event.target.dataset.id;
+        crudItem.dataset.itemId = item._id;
+        crudItem.dataset.name = item.name;
+
+        crudItem.textContent = item.name;
+    
+        crudContainer.style.opacity = 1;
+        crudButtons.style.display = "flex";
+    }
+}

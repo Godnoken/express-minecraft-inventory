@@ -40,7 +40,7 @@ exports.iteminstance_detail = function (req, res, next) {
 exports.iteminstance_create_get = function (req, res, next) {};
 
 exports.iteminstance_create_post = function (req, res, next) {
-  let iteminstance = new ItemInstance({
+  const iteminstance = new ItemInstance({
     item: req.body.id,
     acquired: new Date(),
     crafted: false,
@@ -57,7 +57,21 @@ exports.iteminstance_create_post = function (req, res, next) {
 
 exports.iteminstance_update_get = function (req, res, next) {};
 
-exports.iteminstance_update_post = function (req, res, next) {};
+exports.iteminstance_update_post = function (req, res, next) {
+
+  const iteminstance = new ItemInstance({
+    _id: req.body.id,
+    item: req.body.item,
+    acquired: req.body.acquired,
+    crafted: req.body.crafted
+  })
+
+  ItemInstance.findByIdAndUpdate(req.body.id, iteminstance, {}, function (err) {
+    if (err) { return next(err); }
+       
+       res.send(200, {});
+    });
+};
 
 exports.iteminstance_delete_get = function (req, res, next) {};
 

@@ -54,7 +54,7 @@ router.post('/iteminstance/:id/delete', item_instance_controller.iteminstance_de
 router.get('/iteminstance/:id/update', item_instance_controller.iteminstance_update_get);
 
 // POST request to update itemInstance.
-router.post('/iteminstance/:id/update', item_instance_controller.iteminstance_update_post);
+router.post('/iteminstance/update', item_instance_controller.iteminstance_update_post);
 
 // GET request for one itemInstance.
 router.get('/iteminstance/:id', item_instance_controller.iteminstance_detail);
