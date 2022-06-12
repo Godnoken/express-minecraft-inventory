@@ -35,7 +35,8 @@ a {
   color: #00b7ff;
 }
 
-p, a {
+p,
+a {
   margin: 0;
   font-size: clamp(12px, 1.6 * (1vw + 1vh) / 2, 100px);
 }
@@ -270,7 +271,7 @@ h1 {
   height: 0.3rem;
   left: -0.3rem;
   bottom: -0.3rem;
-  background-color: rgb(178,178,178);
+  background-color: rgb(178, 178, 178);
 }
 
 .square::after {
@@ -280,7 +281,7 @@ h1 {
   height: 0.3rem;
   right: -0.3rem;
   top: -0.3rem;
-  background-color: rgb(178,178,178);
+  background-color: rgb(178, 178, 178);
 }
 
 .shared-square {
@@ -303,7 +304,7 @@ h1 {
   height: 0.3rem;
   left: -0.3rem;
   bottom: -0.3rem;
-  background-color: rgb(152,152,152);
+  background-color: rgb(152, 152, 152);
 }
 
 .shared-square::after {
@@ -313,7 +314,7 @@ h1 {
   height: 0.3rem;
   right: -0.3rem;
   top: -0.3rem;
-  background-color: rgb(152,152,152);
+  background-color: rgb(152, 152, 152);
 }
 
 .tool-tip-container {
@@ -393,6 +394,21 @@ h1 {
   border-bottom: 0.3rem solid rgb(100, 100, 100);
   background-color: var(--main-color);
   scrollbar-width: thin;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .shared-square:hover,
+  .square:hover {
+    background-color: rgb(137 204 79);
+    border: 0.3rem solid white;
+  }
+
+  .shared-square:hover::before,
+  .square:hover::before,
+  .shared-square:hover::after,
+  .square:hover::after {
+    background-color: white;
+  }
 }
 
 @media (max-width: 1000px) {
