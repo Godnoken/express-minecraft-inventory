@@ -1,3 +1,33 @@
+function hideCrud() {
+    const crudContainer = document.querySelector(".crud-container");
+
+    crudContainer.style.visibility = "hidden";
+}
+
+function showCrud(event) {
+
+    if (itemInstancesList[event.target.dataset.index] && event.target.classList.contains("square") || event.target.classList.contains("shared-square")) {
+        const crudContainer = document.querySelector(".crud-container");
+        const crudItem = document.querySelector(".crud-item");
+        const crudButtons = document.querySelector(".crud-buttons");
+        const crudUpdateContainer = document.querySelector(".crud-update-container");
+  
+        if (crudUpdateContainer) crudUpdateContainer.remove();
+    
+        const item = itemList.find(item => item._id === itemInstancesList[event.target.dataset.index].item);
+  
+        crudItem.dataset.index = event.target.dataset.index;
+        crudItem.dataset.id = event.target.dataset.id;
+        crudItem.dataset.itemId = item._id;
+        crudItem.dataset.name = item.name;
+  
+        crudItem.textContent = item.name;
+    
+        crudContainer.style.visibility = "visible";
+        crudButtons.style.display = "flex";
+    }
+  }
+
 function showItemInstanceUpdate() {
     const crudContainer = document.querySelector(".crud-container");
     const crudButtons = document.querySelector(".crud-buttons");
@@ -23,9 +53,14 @@ function showItemInstanceUpdate() {
 
     crudCraftedLabel.textContent = "Crafted";
     crudBoughtLabel.textContent = "Bought";
-    crudSubmit.textContent = "Update";
+    crudSubmit.textContent = "Confirm";
 
     crudUpdateContainer.classList.add("crud-update-container");
+    crudItemSelect.classList.add("crud-update-select");
+    crudAcquired.classList.add("crud-update-acquired");
+    crudCraftedLabel.classList.add("crud-update-crafted");
+    crudBoughtLabel.classList.add("crud-update-bought");
+    crudSubmit.classList.add("crud-button");
 
     if (itemInstancesList[crudItem.dataset.index].crafted) crudCrafted.checked = true;
     else crudBought.checked = true;
@@ -49,6 +84,7 @@ function showItemInstanceUpdate() {
     
     crudSubmit.addEventListener("click", (event) => {
         updateItemInstance(event, crudItem.dataset.id, crudItemSelect, crudAcquired, crudCrafted, crudItem);
+        crudContainer.style.visibility = "hidden";
     });
     
     crudContainer.appendChild(crudUpdateContainer);
@@ -74,7 +110,7 @@ function updateItemInstance(event, crudItemInstanceId, crudItemSelect, crudAcqui
             crafted: crudCrafted.checked ? true : false
          })
       })
-      .then(response => updateItemInstanceOnClient(crudItemSelect, crudAcquired, crudCrafted, crudItem))
+      .then(() => updateItemInstanceOnClient(crudItemSelect, crudAcquired, crudCrafted, crudItem))
       .catch((error) => console.log(error))
 }
 

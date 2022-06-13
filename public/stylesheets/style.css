@@ -4,10 +4,19 @@
 }
 
 :root {
-  --main-color: #e1e2e4;
-  --secondary-color: #aaaaaa;
+  --main-color: #c6c6c6;
+  --background-color-dark: #313233;
+  --background-color-middle: #5d5d5d;
+  --accent-color-middle: #8a8a8a;
+  --accent-color-dark: #8b8b8b;
+  --text-color-dark: #4c4c4c;
+  --text-color-middle: #989899;
+  --text-color-bright: #ffffff;
+  --border-color-dark: #373737;
+  --border-color-middle: #555555;
+  --border-color-bright-one: #a6a5a5;
+  --border-color-bright-two: #ffffff;
 
-  --shared-inventory-height: 0;
   /* Firefox issue */
   --scrollbar-padding: 0.8rem;
 }
@@ -27,8 +36,7 @@ body {
   padding: 2rem;
   overflow: hidden;
   font-family: Minecraft;
-  background-color: rgb(51, 51, 51);
-  color: white;
+  background-color: var(--background-color-dark);
 }
 
 a {
@@ -41,15 +49,155 @@ button,
 label {
   margin: 0;
   font-size: clamp(12px, 1.6 * (1vw + 1vh) / 2, 100px);
+  font-family: Minecraft;
+}
+
+input,
+select {
+  font-family: Minecraft;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-color-dark);
+  cursor: pointer;
+}
+
+select {
+  position: relative;
+  appearance: none;
+  background-color: var(--main-color);
+  padding: 0 1rem;
+  border: 0.3rem solid #131313;
+  box-shadow: inset 0.2rem 0 0 0 var(--border-color-bright-two),
+    inset 0 0.2rem 0 0 var(--border-color-bright-two),
+    inset -0.2rem 0 0 0 var(--border-color-middle),
+    inset 0 -0.2rem 0 0 var(--border-color-middle);
+}
+
+select:hover {
+  background-color: rgb(48, 128, 48);
+  color: var(--text-color-bright);
+  border: 0.3rem solid var(--border-color-bright-two);
+  box-shadow: inset 0.2rem 0 0 0 rgb(23, 201, 23),
+    inset 0 0.2rem 0 0 rgb(23, 201, 23), inset -0.2rem 0 0 0 rgb(3, 71, 3),
+    inset 0 -0.2rem 0 0 rgb(3, 71, 3);
+}
+
+select:hover:focus {
+  background-color: var(--background-color-middle);
+  border: 0.3rem solid #131313;
+  box-shadow: inset 0.2rem 0 0 0 var(--border-color-middle),
+    inset 0 0.2rem 0 0 var(--border-color-middle),
+    inset -0.2rem 0 0 0 var(--border-color-bright-two),
+    inset 0 -0.2rem 0 0 var(--border-color-bright-two);
+}
+
+input[type="date"] {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+}
+
+::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+input[type="radio"] {
+  position: relative;
+  appearance: none;
+  margin: 0.4rem 0;
+  width: 4rem;
+  height: 2rem;
+  background-color: var(--background-color-middle);
+  border: solid 0.2rem black;
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.4rem;
+  height: 1rem;
+  background-color: var(--border-color-bright-one);
+}
+
+input[type="radio"]::after {
+  content: "";
+  position: absolute;
+  left: -0.7rem;
+  top: -0.7rem;
+  width: 1.7rem;
+  height: 3rem;
+  background-color: var(--main-color);
+  border: 0.2rem solid black;
+  box-shadow: inset 0.2rem 0 0 0 #ffffff, inset 0 0.2rem 0 0 #ffffff,
+    inset -0.2rem 0 0 0 gray, inset 0 -0.2rem 0 0 gray;
+}
+
+label:hover input[type="radio"]::after,
+.crud-button:hover {
+  color: var(--text-color-bright);
+  background-color: rgb(29, 167, 29);
+  border-color: var(--border-color-bright-two);
+  box-shadow: inset 0.2rem 0 0 0 rgb(23, 201, 23),
+    inset 0 0.2rem 0 0 rgb(23, 201, 23), inset -0.2rem 0 0 0 rgb(7, 119, 7),
+    inset 0 -0.2rem 0 0 rgb(7, 119, 7);
+}
+
+label:hover input[type="radio"]::before {
+  background-color: rgb(48, 126, 48);
+}
+
+label:hover input[type="radio"] {
+  background-color: rgb(31, 105, 31);
+  border-color: white;
+}
+
+input[type="radio"]:checked:hover {
+  background-color: rgb(48, 126, 48);
+}
+
+input[type="radio"]:checked:hover::before {
+  background-color: rgb(31, 105, 31);
+}
+
+input[type="radio"]:checked::after {
+  left: 2.6rem;
+}
+
+input[type="radio"]:checked {
+  background-color: var(--border-color-bright-one);
+}
+
+input[type="radio"]:checked::before {
+  background-color: var(--background-color-middle);
 }
 
 label {
-  color:rgb(95, 95, 95);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  justify-content: space-between;
+  color: var(--text-color-dark);
+  cursor: pointer;
 }
 
 h1 {
   text-align: center;
   grid-column: 1/4;
+  color: var(--text-color-bright);
 }
 
 .navigation {
@@ -85,11 +233,11 @@ h1 {
   height: 100%;
   left: 0;
   top: 0;
-  border-left: 0.5rem solid white;
-  border-top: 0.5rem solid white;
-  border-right: 0.5rem solid var(--secondary-color);
-  border-bottom: 0.5rem solid var(--secondary-color);
-  box-shadow: 0 0.1rem 0.2rem 0.1rem #585858;
+  border-left: 0.5rem solid var(--border-color-bright-two);
+  border-top: 0.5rem solid var(--border-color-bright-two);
+  border-right: 0.5rem solid var(--border-color-middle);
+  border-bottom: 0.5rem solid var(--border-color-middle);
+  box-shadow: 0 0.1rem 0rem 0.1rem #141414;
   pointer-events: none;
   border-radius: 0.8rem;
 }
@@ -103,7 +251,7 @@ h1 {
 
 .search-bar-container {
   position: relative;
-  background-color: #797979;
+  background-color: var(--background-color-middle);
   border: 0.3rem solid black;
 }
 
@@ -117,8 +265,8 @@ h1 {
   left: 0;
   height: 100%;
   width: 100%;
-  border-top: 0.3rem solid #5d5d5d;
-  border-bottom: 0.3rem solid rgb(212, 212, 212);
+  border-top: 0.3rem solid #464446;
+  border-bottom: 0.3rem solid #b2b2b2;
 }
 
 .search-bar {
@@ -129,8 +277,7 @@ h1 {
   border: none;
   font-family: Minecraft;
   font-size: 1.8rem;
-  background-color: #797979;
-  color: white;
+  color: var(--text-color-bright);
   text-shadow: 0.1rem 0.1rem 0 #000000;
 }
 
@@ -141,24 +288,12 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
   grid-template-rows: inherit;
   padding: 0.3rem var(--scrollbar-padding) 0.3rem 0.3rem;
-  background-color: var(--secondary-color);
+  background-color: var(--background-color-middle);
   overflow-y: scroll;
   overflow-x: hidden;
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: var(--secondary-color) var(--main-color);
-}
-
-.items-container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(100% - var(--scrollbar-padding) + 0.3rem);
-  height: var(--shared-inventory-height);
-  border: 0.3rem solid gray;
-  background-color: transparent;
-  pointer-events: none;
+  scrollbar-color: var(--accent-color-middle) var(--main-color);
 }
 
 .item-svg {
@@ -171,9 +306,9 @@ h1 {
   margin: auto 0 0.8rem 0;
   width: 100%;
   height: 75%;
-  border-top: 0.5rem solid var(--main-color);
-  border-bottom: 0.5rem solid #7c7c7c;
-  background-color: var(--secondary-color);
+  border-top: 0.5rem solid var(--border-color-bright-one);
+  border-bottom: 0.5rem solid var(--border-color-dark);
+  background-color: var(--background-color-middle);
 }
 
 .personal-inventory-container {
@@ -182,7 +317,6 @@ h1 {
   position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: 1.2rem;
   margin-top: auto;
   padding: 1.2rem 0.8rem;
   border-radius: 0.8rem;
@@ -196,11 +330,11 @@ h1 {
   height: 100%;
   left: 0;
   top: 0;
-  border-left: 0.5rem solid white;
-  border-top: 0.5rem solid white;
-  border-right: 0.5rem solid var(--secondary-color);
-  border-bottom: 0.5rem solid var(--secondary-color);
-  box-shadow: 0 0.1rem 0.2rem 0.1rem #585858;
+  border-left: 0.5rem solid var(--border-color-bright-two);
+  border-top: 0.5rem solid var(--border-color-bright-two);
+  border-right: 0.5rem solid var(--border-color-middle);
+  border-bottom: 0.5rem solid var(--border-color-middle);
+  box-shadow: 0 0.1rem 0rem 0.1rem #141414;
   pointer-events: none;
   border-radius: 0.8rem;
 }
@@ -209,14 +343,14 @@ h1 {
   height: 60%;
   display: flex;
   align-items: center;
-  column-gap: 0.8rem;
+  justify-content: center;
   padding: 0 0.4rem;
 }
 
 .crafting-container {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 50%;
 }
 
 .crafting {
@@ -227,7 +361,7 @@ h1 {
 }
 
 .crafting-title {
-  color: rgb(95, 95, 95);
+  color: var(--text-color-dark);
   font-size: 2rem;
 }
 
@@ -246,22 +380,23 @@ h1 {
 .personal-inventory {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+  flex-shrink: 4;
   overflow-y: auto;
   overflow-x: hidden;
   border: 0.2rem solid transparent;
   padding: 0 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--secondary-color) var(--main-color);
+  scrollbar-color: var(--accent-color-middle) var(--main-color);
 }
 
 .square {
   position: relative;
   aspect-ratio: 1/1;
-  background-color: var(--secondary-color);
-  border-right: 0.3rem solid rgb(255, 255, 255);
-  border-bottom: 0.3rem solid rgb(255, 255, 255);
-  border-left: 0.3rem solid rgb(100, 100, 100);
-  border-top: 0.3rem solid rgb(100, 100, 100);
+  background-color: var(--accent-color-dark);
+  border-right: 0.3rem solid var(--border-color-bright-two);
+  border-bottom: 0.3rem solid var(--border-color-bright-two);
+  border-left: 0.3rem solid var(--border-color-dark);
+  border-top: 0.3rem solid var(--border-color-dark);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -290,11 +425,11 @@ h1 {
 .shared-square {
   position: relative;
   aspect-ratio: 1/1;
-  background-color: var(--secondary-color);
-  border-left: 0.3rem solid rgb(205 205 205);
-  border-top: 0.3rem solid rgb(205 205 205);
-  border-right: 0.3rem solid rgb(100, 100, 100);
-  border-bottom: 0.3rem solid rgb(100, 100, 100);
+  background-color: var(--accent-color-middle);
+  border-left: 0.3rem solid var(--border-color-bright-one);
+  border-top: 0.3rem solid var(--border-color-bright-one);
+  border-right: 0.3rem solid var(--border-color-dark);
+  border-bottom: 0.3rem solid var(--border-color-dark);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,6 +466,7 @@ h1 {
   background-color: black;
   pointer-events: none;
   word-wrap: break-word;
+  color: var(--text-color-bright);
 }
 
 .tool-tip-container::after {
@@ -369,20 +505,47 @@ h1 {
 }
 
 .crud-container {
-  grid-column: 1/4;
-  height: 100%;
-  width: 45%;
-  margin: 1rem auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 60%;
+  width: 20%;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 1.4rem;
-  opacity: 0;
+  padding: 1.2rem;
+  row-gap: 1rem;
+  background-color: var(--background-color-dark);
+  border-radius: 0.8rem;
+  visibility: hidden;
+  z-index: 1;
+}
+
+.crud-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-left: 0.5rem solid var(--border-color-bright-two);
+  border-top: 0.5rem solid var(--border-color-bright-two);
+  border-right: 0.5rem solid var(--border-color-bright-one);
+  border-bottom: 0.5rem solid var(--border-color-bright-one);
+  box-shadow: 0 0.1rem 0rem 0.14rem #141414b9;
+  border-radius: 0.8rem;
+  pointer-events: none;
 }
 
 .crud-update-container {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 0 2rem;
   row-gap: 0.2rem;
 }
 
@@ -398,11 +561,69 @@ h1 {
 }
 
 .crud-button {
-  background-color: transparent;
+  position: relative;
+  width: max-content;
   border: none;
-  color: rgb(95, 95, 95);
+  padding: 1rem;
+  background-color: var(--main-color);
+  color: var(--text-color-dark);
   font-family: Minecraft;
   cursor: pointer;
+  margin: 0 auto;
+  border: 0.2rem solid #131313;
+  box-shadow: inset 0.2rem 0 0 0 var(--border-color-bright-two),
+    inset 0 0.2rem 0 0 var(--border-color-bright-two),
+    inset -0.2rem 0 0 0 var(--border-color-middle),
+    inset 0 -0.2rem 0 0 var(--border-color-middle);
+}
+
+.crud-button::before {
+  content: "";
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  left: 0;
+  bottom: 0;
+  background-color: #AAAAAA;
+}
+
+.crud-button::after {
+  content: "";
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  right: 0;
+  top: 0;
+  background-color: #AAAAAA;
+}
+
+.crud-button:hover::before,
+.crud-button:hover::after {
+  background-color: #22ad40;
+}
+
+.crud-exit {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  stroke: var(--text-color-bright);
+}
+
+.crud-exit:hover {
+  background-color: var(--border-color-bright-one);
+}
+
+.crud-update-crafted,
+.crud-update-bought {
+  color: var(--text-color-bright);
+}
+
+.crud-update-acquired {
+  color: var(--text-color-bright);
 }
 
 .pointer {
@@ -413,32 +634,29 @@ h1 {
   width: 1rem;
   outline: 0.5rem solid var(--main-color);
   cursor: grab;
-  background-color: var(--main-color);
-  scrollbar-width: thin;
+  background-color: var(--accent-color-dark);
 }
 
 ::-webkit-scrollbar-track {
   position: relative;
-  border-left: 0.3rem solid rgb(100, 100, 100);
-  border-top: 0.3rem solid rgb(100, 100, 100);
-  border-right: 0.3rem solid rgb(255, 255, 255);
-  border-bottom: 0.3rem solid rgb(255, 255, 255);
-  scrollbar-width: thin;
+  border-left: 0.3rem solid var(--border-color-dark);
+  border-top: 0.3rem solid var(--border-color-dark);
+  border-right: 0.3rem solid var(--border-color-bright-two);
+  border-bottom: 0.3rem solid var(--border-color-bright-two);
 }
 
 ::-webkit-scrollbar-thumb {
-  border-left: 0.3rem solid rgb(255, 255, 255);
-  border-top: 0.3rem solid rgb(255, 255, 255);
-  border-right: 0.3rem solid rgb(100, 100, 100);
-  border-bottom: 0.3rem solid rgb(100, 100, 100);
+  border-left: 0.3rem solid var(--border-color-bright-two);
+  border-top: 0.3rem solid var(--border-color-bright-two);
+  border-right: 0.3rem solid var(--border-color-dark);
+  border-bottom: 0.3rem solid var(--border-color-dark);
   background-color: var(--main-color);
-  scrollbar-width: thin;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .shared-square:hover,
   .square:hover {
-    background-color: rgb(137 204 79);
+    background-color: rgb(119 179 68);
     border: 0.3rem solid white;
   }
 
@@ -449,8 +667,8 @@ h1 {
     background-color: white;
   }
 
-  .crud-button:hover {
-    color: var(--secondary-color);
+  .search-bar-container:hover {
+    border-color: var(--border-color-bright-two);
   }
 }
 
@@ -477,8 +695,8 @@ h1 {
     height: 100%;
     width: 93%;
     border: none;
-    border-left: 0.5rem solid #7c7c7c;
-    border-right: 0.5rem solid #7c7c7c;
+    border-left: 0.5rem solid var(--border-color-dark);
+    border-right: 0.5rem solid var(--border-color-dark);
   }
 
   .personal-inventory-container {
@@ -501,4 +719,7 @@ h1 {
   h1 {
     margin: 1rem;
   }
+}
+
+@media (max-width: 450px) {
 }

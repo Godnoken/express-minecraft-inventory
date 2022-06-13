@@ -21,10 +21,6 @@ script.
     itemsContainer.addEventListener("click", addItem);
     searchInput.addEventListener("change", () => searchItem());
 
-    window.addEventListener("load", () => {
-      root.style.setProperty("--shared-inventory-height", itemsContainer.scrollHeight + "px");
-    })
-
     // Make post request to add iteminstance to personal inventory
     function addItem(event) {
        if (itemList[event.target.dataset.index]) {
