@@ -88,7 +88,7 @@ function createItemInstanceDetails(itemInstance) {
       body: JSON.stringify({
         id: data.itemInstance._id,
         item: data.itemSelect.value,
-        acquired: data.acquiredInput.value,
+        acquired: data.acquiredInput.value !== "" ? data.acquiredInput.value : Date.now(),
         crafted: data.craftedInput.checked ? true : false,
       }),
     })

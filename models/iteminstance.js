@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const ItemInstanceSchema = new Schema({
   item: { type: Schema.Types.ObjectId, ref: "Item", required: true },
-  acquired: { type: Date, default: Date.now },
+  acquired: { type: Date, default: Date.now() },
   crafted: { type: Boolean, default: false },
 });
 
