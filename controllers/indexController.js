@@ -9,6 +9,11 @@ const Type = require("../models/type");
 exports.index = function (req, res) {
   async.parallel(
     {
+      inventors_list: function (callback) {
+        Inventor.find()
+
+        .exec(callback);
+      },
       item_list: function (callback) {
         Item.find()
         .populate("inventor")
@@ -17,6 +22,7 @@ exports.index = function (req, res) {
       },
       item_instances_list: function (callback) {
         ItemInstance.find()
+        
         .exec(callback);
       },
     },
@@ -24,8 +30,8 @@ exports.index = function (req, res) {
       if (error) {
         return next(error);
       }
-
-      res.render("index", { title: "Item List", item_list: results.item_list, item_instances_list: results.item_instances_list });
+      
+      res.render("index", { title: "Item List", inventors_list: results.inventors_list, item_list: results.item_list, item_instances_list: results.item_instances_list });
     }
   );
 };

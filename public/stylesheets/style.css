@@ -43,6 +43,49 @@ a {
   color: #00b7ff;
 }
 
+.button {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  border: none;
+  padding: 1rem;
+  background-color: var(--main-color);
+  color: var(--text-color-dark);
+  font-family: Minecraft;
+  cursor: pointer;
+  margin: 0 auto;
+  border: 0.2rem solid #131313;
+  box-shadow: inset 0.2rem 0 0 0 var(--border-color-bright-two),
+    inset 0 0.2rem 0 0 var(--border-color-bright-two),
+    inset -0.2rem 0 0 0 var(--border-color-middle),
+    inset 0 -0.2rem 0 0 var(--border-color-middle);
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  left: 0;
+  bottom: 0;
+  background-color: #AAAAAA;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  width: 0.2rem;
+  height: 0.2rem;
+  right: 0;
+  top: 0;
+  background-color: #AAAAAA;
+}
+
+.button:hover::before,
+.button:hover::after {
+  background-color: #22ad40;
+}
+
 p,
 a,
 button,
@@ -50,6 +93,7 @@ label {
   margin: 0;
   font-size: clamp(12px, 1.6 * (1vw + 1vh) / 2, 100px);
   font-family: Minecraft;
+  user-select: none;
 }
 
 input,
@@ -147,7 +191,7 @@ input[type="radio"]::after {
 }
 
 label:hover input[type="radio"]::after,
-.crud-button:hover {
+.button:hover {
   color: var(--text-color-bright);
   background-color: rgb(29, 167, 29);
   border-color: var(--border-color-bright-two);
@@ -286,7 +330,7 @@ h1 {
   max-height: 70vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
-  grid-template-rows: inherit;
+  grid-template-rows: max-content;
   padding: 0.3rem var(--scrollbar-padding) 0.3rem 0.3rem;
   background-color: var(--background-color-middle);
   overflow-y: scroll;
@@ -305,14 +349,14 @@ h1 {
 .separator-main {
   margin: auto 0 0.8rem 0;
   width: 100%;
-  height: 75%;
+  height: 96%;
   border-top: 0.5rem solid var(--border-color-bright-one);
-  border-bottom: 0.5rem solid var(--border-color-dark);
+  border-bottom: 0.5rem solid #46494c;
   background-color: var(--background-color-middle);
 }
 
 .personal-inventory-container {
-  height: 80%;
+  height: 100%;
   max-height: 70vh;
   position: relative;
   display: flex;
@@ -378,10 +422,12 @@ h1 {
 }
 
 .personal-inventory {
+  height: 40%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+  grid-template-rows: max-content;
   flex-shrink: 4;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   border: 0.2rem solid transparent;
   padding: 0 0.5rem;
@@ -517,7 +563,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.2rem;
+  padding: 1.2rem 0;
   row-gap: 1rem;
   background-color: var(--background-color-dark);
   border-radius: 0.8rem;
@@ -541,65 +587,66 @@ h1 {
   pointer-events: none;
 }
 
+.crud-inner-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
+  padding: 0 2.5rem;
+  user-select: none;
+  overflow-y: auto;
+  color: var(--text-color-bright);
+  scrollbar-width: none;
+}
+
 .crud-update-container {
   width: 100%;
   height: 100%;
   display: grid;
-  padding: 0 2rem;
   row-gap: 0.2rem;
 }
 
-.crud-item {
+.crud-delete-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  word-break: break-word;
+  color: var(--text-color-bright);
+}
+
+.crud-title {
   color: #00b7ff;
 }
 
-.crud-buttons {
+.crud-buttons-container {
+  height: 100%;
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2rem;
   user-select: none;
 }
 
-.crud-button {
-  position: relative;
-  width: max-content;
-  border: none;
-  padding: 1rem;
-  background-color: var(--main-color);
-  color: var(--text-color-dark);
-  font-family: Minecraft;
+.open-crud-button {
+  width: 30%;
+}
+
+.crud-go-back {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0.4rem;
+  visibility: hidden;
   cursor: pointer;
-  margin: 0 auto;
-  border: 0.2rem solid #131313;
-  box-shadow: inset 0.2rem 0 0 0 var(--border-color-bright-two),
-    inset 0 0.2rem 0 0 var(--border-color-bright-two),
-    inset -0.2rem 0 0 0 var(--border-color-middle),
-    inset 0 -0.2rem 0 0 var(--border-color-middle);
-}
-
-.crud-button::before {
-  content: "";
-  position: absolute;
-  width: 0.2rem;
-  height: 0.2rem;
-  left: 0;
-  bottom: 0;
-  background-color: #AAAAAA;
-}
-
-.crud-button::after {
-  content: "";
-  position: absolute;
-  width: 0.2rem;
-  height: 0.2rem;
-  right: 0;
-  top: 0;
-  background-color: #AAAAAA;
-}
-
-.crud-button:hover::before,
-.crud-button:hover::after {
-  background-color: #22ad40;
+  stroke: var(--text-color-bright);
 }
 
 .crud-exit {
@@ -613,16 +660,12 @@ h1 {
   stroke: var(--text-color-bright);
 }
 
-.crud-exit:hover {
+.crud-exit:hover,
+.crud-go-back:hover {
   background-color: var(--border-color-bright-one);
 }
 
-.crud-update-crafted,
-.crud-update-bought {
-  color: var(--text-color-bright);
-}
-
-.crud-update-acquired {
+.crud-text-color {
   color: var(--text-color-bright);
 }
 
@@ -653,6 +696,28 @@ h1 {
   background-color: var(--main-color);
 }
 
+.crud-inner-container::-webkit-scrollbar {
+  width: 0.7rem;
+  background-color: var(--accent-color-dark);
+  box-shadow:
+  inset 0.1rem 0 0 0rem var(--background-color-dark),
+  inset -0.1rem 0 0 0rem var(--background-color-dark)
+  ;
+  outline: none;
+}
+
+.crud-inner-container::-webkit-scrollbar-track {
+  border: none;
+}
+
+.crud-inner-container::-webkit-scrollbar-thumb {
+  border: 0.1rem black solid;;
+  background-color: var(--main-color);
+  box-shadow:
+  inset 0 0.2rem 0 0 var(--border-color-bright-two),
+  inset 0 -0.2rem 0 0 var(--border-color-middle);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .shared-square:hover,
   .square:hover {
@@ -669,6 +734,10 @@ h1 {
 
   .search-bar-container:hover {
     border-color: var(--border-color-bright-two);
+  }
+
+  .text-hover:hover {
+    color: var(--text-color-middle);
   }
 }
 

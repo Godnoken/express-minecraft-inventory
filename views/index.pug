@@ -1,10 +1,9 @@
 extends layout
 
 block content
+  include crud
   main(class="main")
     h1= title
     include shared_inventory
     div(class="separator-main")
     include personal_inventory
-    include crud-operations
-    

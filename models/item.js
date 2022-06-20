@@ -9,7 +9,8 @@ const ItemSchema = new Schema(
         value: { type: Number, required: true },
         inventor: { type: Schema.Types.ObjectId, ref: "Inventor", required: true },
         type: [{ type: Schema.Types.ObjectId, ref: "Type", required: true }],
-        craftingMaterials: [{ type: Schema.Types.ObjectId, ref: "Item" }]
+        craftingMaterials: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+        image: { type: Schema.Types.Buffer }
     }
 );
 

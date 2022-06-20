@@ -2,7 +2,7 @@ function readItemInfo(event, list) {
   const currentToolTipContainer = document.querySelector(".tool-tip-container");
   if (currentToolTipContainer) currentToolTipContainer.remove();
     
-  if (list[event.target.dataset.index] && event.target.classList.contains("square") || event.target.classList.contains("shared-square")) {
+  if (event.target.classList.contains("item-instance") || event.target.classList.contains("shared-square")) {
     const toolTipContainer = document.createElement("div");
     const name = document.createElement("h2");
     const description = document.createElement("p");

@@ -48,7 +48,7 @@ router.post('/iteminstance/create', item_instance_controller.iteminstance_create
 router.get('/iteminstance/:id/delete', item_instance_controller.iteminstance_delete_get);
 
 // POST request to delete itemInstance.
-router.post('/iteminstance/:id/delete', item_instance_controller.iteminstance_delete_post);
+router.post('/iteminstance/delete', item_instance_controller.iteminstance_delete_post);
 
 // GET request to update itemInstance.
 router.get('/iteminstance/:id/update', item_instance_controller.iteminstance_update_get);

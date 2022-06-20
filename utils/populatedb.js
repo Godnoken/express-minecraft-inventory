@@ -1,6 +1,8 @@
 #! /usr/bin/env node
 
-console.log('This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
+const fs = require('fs');
+
+console.log('This script populates some test items, iteminstances, inventors and types to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true');
 
 // Get arguments passed on command line
 var userArgs = process.argv.slice(2);
@@ -61,13 +63,14 @@ function typeCreate(name, cb) {
   }   );
 }
 
-function itemCreate(name, description, value, inventor, type, craftingMaterials, cb) {
+function itemCreate(name, description, value, inventor, type, craftingMaterials, image, cb) {
   itemdetail = { 
     name: name,
     description: description,
     value: value,
     inventor: inventor,
-    type: type
+    type: type,
+    image: image
   }
   if (craftingMaterials != null) itemdetail.craftingMaterials = craftingMaterials;
     
@@ -158,28 +161,28 @@ function createTypes(cb) {
 function createItems(cb) {
     async.parallel([
         function(callback) {
-          itemCreate("Hoe", "Cultivate soil and remove weeds", 4, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Hoe", "Cultivate soil and remove weeds", 4, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Dagger", "Cuts.. something", 7, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Dagger", "Cuts.. something", 7, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Helmet", "Protects the brain", 12, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Helmet", "Protects the brain", 12, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond_helmet.png"), callback);
         },
         function(callback) {
-          itemCreate("Fork", "Eat with style", 2, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Fork", "Eat with style", 2, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Hammer", "Maybe for nails, maybe for something else", 5, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Hammer", "Maybe for nails, maybe for something else", 5, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Sledgehammer", "Hulk smash", 14, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Sledgehammer", "Hulk smash", 14, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Limestone", "Annoying stone", 1, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Limestone", "Annoying stone", 1, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         function(callback) {
-          itemCreate("Oak Wood", "For a table?", 2, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, callback);
+          itemCreate("Oak Wood", "For a table?", 2, inventors[rndm(inventors.length)], [types[rndm(types.length)]], null, fs.readFileSync("../public/images/diamond-hoe.webp"), callback);
         },
         ],
         // optional callback

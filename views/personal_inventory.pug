@@ -1,5 +1,6 @@
 article(class="personal-inventory-container")
   div(class="personal-inventory-top")
+    button(class="button open-crud-button" onclick="showCrud(), createCrudChoices()") CRUD
     div(class="crafting-container")
       p(class="crafting-title") Crafting
       div(class="crafting")
@@ -12,16 +13,42 @@ article(class="personal-inventory-container")
         div(class="square crafted-item")
   div(class="personal-inventory")
     - for(let i = 0; i < item_instances_list.length; i++){
-    div(class=(item_instances_list[i] ? "square pointer" : "square") data-index=i data-id=(item_instances_list[i] ? item_instances_list[i]._id : ""))
+    div(class=(item_instances_list[i] ? "item-instance square pointer" : "square") data-index=i data-id=(item_instances_list[i] ? item_instances_list[i]._id : ""))
       if item_instances_list[i]
-          svg(class="item-svg" viewBox="0 -0.5 32 32")
-              path(d="M11 1h8M9 2h12M8 3h14M8 4h15M7 5h6m4 0h7M7 6h5m6 0h6M7 7h4m8 0h5M7 8h4m8 0h5m-6 1h6m-7 1h6m-7 1h6m-7 1h6m-7 1h6m-6 1h5m-5 1h5m-5 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 1h4m-4 4h4m-4 1h4m-4 1h4m-4 1h4")
+        
+          
     - }
 
 script.
-    let itemInstancesList = !{JSON.stringify(item_instances_list)}
+    const itemInstances = document.querySelectorAll(".item-instance");
+    
+    itemInstances.forEach((itemInstance) => {
+
+      let item = itemList.find(item => {
+        if (item._id === itemInstancesList[itemInstance.dataset.index].item) {
+          return item;
+        } 
+      })
+
+      const img = document.createElement("img");
+
+      const binstr = String.fromCharCode(...item.image.data);
+      const b64str = btoa(binstr);
+
+      img.src = `data:image/image/png;base64,${b64str}`;
+
+      img.classList.add("item-svg")
+
+      itemInstance.appendChild(img);
+    })
+    
 
     const itemInstancesContainer = document.querySelector(".personal-inventory-container");
 
     itemInstancesContainer.addEventListener("mouseover", () => readItemInfo(event, itemInstancesList));
-    itemInstancesContainer.addEventListener("click", showCrud);
+    itemInstancesContainer.addEventListener("click", (event) => {
+      if (event.target.classList.contains("item-instance")) {
+        showCrud();
+        createItemInstanceDetails(itemInstancesList[event.target.dataset.index]);
+      }
+    });

@@ -11,7 +11,7 @@ exports.iteminstance_list = function (req, res, next) {
       if (err) {
         return next(err);
       }
-
+      
       res.render("iteminstance_list", {
         title: "Item Instance List",
         iteminstance_list: list_iteminstances,
@@ -50,9 +50,9 @@ exports.iteminstance_create_post = function (req, res, next) {
     if (err) {
       return next(err);
     }
+
+    res.status(200).json({item_instance: iteminstance});
   });
-  
-  res.send(200, {item_instance: iteminstance});
 };
 
 exports.iteminstance_update_get = function (req, res, next) {};
@@ -69,10 +69,16 @@ exports.iteminstance_update_post = function (req, res, next) {
   ItemInstance.findByIdAndUpdate(req.body.id, iteminstance, {}, function (err) {
     if (err) { return next(err); }
        
-       res.send(200, {});
+       res.status(200).json({});
     });
 };
 
 exports.iteminstance_delete_get = function (req, res, next) {};
 
-exports.iteminstance_delete_post = function (req, res, next) {};
+exports.iteminstance_delete_post = function (req, res, next) {
+    ItemInstance.findByIdAndRemove(req.body.id, function (err) {
+      if (err) { return next(err); }
+      
+      res.status(200).json({});
+  });
+};
