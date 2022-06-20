@@ -45,7 +45,13 @@ function readItemInfo(event, list) {
     type.textContent = item.type[0].name;
     if (list === itemInstancesList) {
         let itemAcquired = Math.abs(Math.ceil((new Date(itemInstanceInfo.acquired).getTime() - new Date().getTime()) / (1000 * 3600 * 24)));
-        acquired.textContent = `${itemInstanceInfo.crafted ? "Crafted: " : "Bought: "} ${itemAcquired} ${itemAcquired === 1 ? "day ago" : "days ago"}`;
+        let daysAgo;
+
+        if (itemAcquired === 0) daysAgo = "Last 24 hours";
+        else if (itemAcquired === 1) daysAgo = `${itemAcquired} day ago`;
+        else daysAgo= `${itemAcquired} days ago`;
+        
+        acquired.textContent = `${itemInstanceInfo.crafted ? "Crafted: " : "Bought: "} ${daysAgo}`;
     }
 
 
