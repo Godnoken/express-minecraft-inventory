@@ -18,11 +18,13 @@ function createItemInstanceDetails(itemInstance) {
     const boughtInput = createInput("radio", "crafted");
     const craftedLabel = document.createElement("label");
     const boughtLabel = document.createElement("label");
+    const acquiredLabel = document.createElement("label");
   
     acquiredInput.max = new Date().toISOString().substring(0, 10);
   
     craftedLabel.textContent = "Crafted";
     boughtLabel.textContent = "Bought";
+    acquiredLabel.textContent = "Acquired";
   
     updateContainer.classList.add("crud-update-container");
     itemSelect.classList.add("crud-update-select");
@@ -66,9 +68,10 @@ function createItemInstanceDetails(itemInstance) {
   
     innerContainer.appendChild(updateContainer);
     updateContainer.appendChild(itemSelect);
-    updateContainer.appendChild(acquiredInput);
+    updateContainer.appendChild(acquiredLabel);
     updateContainer.appendChild(craftedLabel);
     updateContainer.appendChild(boughtLabel);
+    acquiredLabel.appendChild(acquiredInput);
     craftedLabel.appendChild(craftedInput);
     boughtLabel.appendChild(boughtInput);
     itemSelect.appendChild(defaultItemOption);
