@@ -1,7 +1,7 @@
 article(class="shared-inventory-container")
   p(class="items-title") Items
-  div(class="search-bar-container")
-    input(class="search-bar" name='search_item' value=(current_search) autocomplete="off")
+  div(class="text-input-container")
+    input(class="text-input search-bar" name='search_item' value=(current_search) autocomplete="off")
   div(class="items-container")
     - for(let i = 0; i < item_list.length; i++){
         div(class=(item_list[i] ? "shared-square pointer" : "shared-square") data-index=i data-id=(item_list[i] ? item_list[i]._id : ""))
@@ -13,7 +13,6 @@ article(class="shared-inventory-container")
 script.
     const itemsContainer = document.querySelector(".items-container");
     const searchInput = document.querySelector(".search-bar");
-    const searchForm = document.querySelector(".search-bar-container");
 
     itemsContainer.addEventListener("mouseover", () => readItemInfo(event, itemList));
     itemsContainer.addEventListener("click", addItem);

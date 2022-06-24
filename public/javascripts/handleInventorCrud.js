@@ -1,0 +1,69 @@
+function createInventorDetails(inventor) {
+    const innerContainer = document.querySelector(".crud-inner-container");
+    const toolTipContainer = document.querySelector(".tool-tip-container");
+    const titleParagrah = document.querySelector(".crud-title");
+  
+    removeContainerChildren(innerContainer);
+    if (toolTipContainer) toolTipContainer.remove();
+  
+  
+    const buttonContainer = document.createElement("div");
+    const updateButton = createButton("Update");
+    const deleteButton = createButton("Delete");
+    const updateContainer = document.createElement("div");
+    const nameInput = createInput("text", null);
+    const birthInput = createInput("date", null);
+    const deathInput = createInput("date", null);
+    const countryInput = createInput("text", null);
+    const nameInputContainer = document.createElement("div");
+    const nameLabel = document.createElement("label");
+    const birthLabel = document.createElement("label");
+    const deathLabel = document.createElement("label");
+    const countryInputContainer = document.createElement("div");
+    const countryLabel = document.createElement("label");
+  
+    nameLabel.textContent = "Name";
+    birthLabel.textContent = "Birth";
+    deathLabel.textContent = "Death";
+    countryLabel.textContent = "Country";
+    
+    updateContainer.classList.add("crud-update-container");
+    buttonContainer.classList.add("crud-buttons-container");
+    nameInput.classList.add("text-input");
+    nameInputContainer.classList.add("text-input-container");
+    birthLabel.classList.add("crud-text-color");
+    deathLabel.classList.add("crud-text-color");
+    countryInput.classList.add("text-input");
+    countryInputContainer.classList.add("text-input-container");
+    
+    titleParagrah.textContent = "Inventor";
+    
+    nameInput.value = inventor.name;
+    if (inventor.country) countryInput.value = inventor.country;
+    if (inventor.birth) birthInput.value = inventor.birth.substr(0, 10);
+    if (inventor.death) deathInput.value = inventor.death.substr(0, 10);
+    deathInput.max = new Date().toISOString().substring(0, 10);
+  
+    updateButton.addEventListener("click", () => {
+      updateInventor({
+      });
+      hideCrud();
+    });
+
+    deleteButton.addEventListener("click", () => createDeleteConfirmation(inventor));
+  
+    innerContainer.appendChild(updateContainer);
+    updateContainer.appendChild(nameLabel);
+    updateContainer.appendChild(birthLabel);
+    updateContainer.appendChild(deathLabel);
+    updateContainer.appendChild(countryLabel);
+    nameLabel.appendChild(nameInputContainer);
+    nameInputContainer.appendChild(nameInput);
+    birthLabel.appendChild(birthInput);
+    deathLabel.appendChild(deathInput);
+    countryLabel.appendChild(countryInputContainer);
+    countryInputContainer.appendChild(countryInput);
+    innerContainer.appendChild(buttonContainer);
+    buttonContainer.appendChild(updateButton);
+    buttonContainer.appendChild(deleteButton);
+  }

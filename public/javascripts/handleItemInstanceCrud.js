@@ -26,9 +26,8 @@ function createItemInstanceDetails(itemInstance) {
   
     updateContainer.classList.add("crud-update-container");
     itemSelect.classList.add("crud-update-select");
-    craftedLabel.classList.add("crud-text-color");
-    boughtLabel.classList.add("crud-text-color");
-  
+    craftedLabel.classList.add("radio-label");
+    boughtLabel.classList.add("radio-label");
     buttonContainer.classList.add("crud-buttons-container");
   
     titleParagrah.textContent = "ItemInstance";
