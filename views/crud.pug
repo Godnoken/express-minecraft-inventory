@@ -1,11 +1,12 @@
-div(class="crud-container")
-    div(class="crud-nav")
-        svg(onclick="goBack()" class="crud-go-back" viewBox="0 -0.5 4 7")
-            path(d="M3 0h1M2 1h1M1 2h1M0 3h1m0 1h1m0 1h1m0 1h1")
-        svg(onclick="hideCrud()" class="crud-exit" viewBox="0 -0.5 5 5")
-            path(d="M0 0h1m3 0h1M1 1h1m1 0h1M2 2h1M1 3h1m1 0h1M0 4h1m3 0h1")
-    p(class="crud-title") CRUD
-    div(class="crud-inner-container")
+div(class="crud-background-container")
+    div(class="crud-container")
+        div(class="crud-nav")
+            svg(onclick="goBack()" class="crud-go-back" viewBox="0 -0.5 4 7")
+                path(d="M3 0h1M2 1h1M1 2h1M0 3h1m0 1h1m0 1h1m0 1h1")
+            svg(onclick="hideCrud()" class="crud-exit" viewBox="0 -0.5 5 5")
+                path(d="M0 0h1m3 0h1M1 1h1m1 0h1M2 2h1M1 3h1m1 0h1M0 4h1m3 0h1")
+        p(class="crud-title") CRUD
+        div(class="crud-inner-container")
 
 script.
     let itemList = !{JSON.stringify(item_list)}

@@ -25,22 +25,36 @@ function handleGoBackVisibility(choice) {
 
 
 function hideCrud() {
-  const container = document.querySelector(".crud-container");
+  const backgroundContainer = document.querySelector(".crud-background-container");
+  const crudContainer = document.querySelector(".crud-container");
 
-  container.style.visibility = "hidden";
-  handleGoBackVisibility("hidden");
+  
+  backgroundContainer.classList.remove("crud-background-transition-in");
+  backgroundContainer.classList.add("crud-background-transition-out");
+  crudContainer.classList.remove("crud-container-transition-in");
+  crudContainer.classList.add("crud-container-transition-out");
+  
+  setTimeout(() => {
+    handleGoBackVisibility("hidden");
+    backgroundContainer.style.visibility = "hidden";
+  }, 500);
 }
 
 
 function showCrud() {
-  const container = document.querySelector(".crud-container");
+  const backgroundContainer = document.querySelector(".crud-background-container");
+  const crudContainer = document.querySelector(".crud-container");
   const innerContainerDiv = document.querySelector(".crud-inner-container");
   const title = document.querySelector(".crud-title");
 
   removeContainerChildren(innerContainerDiv);
   handleGoBackVisibility("hidden");
 
-  container.style.visibility = "visible";
+  backgroundContainer.style.visibility = "visible";
+  backgroundContainer.classList.remove("crud-background-transition-out");
+  backgroundContainer.classList.add("crud-background-transition-in");
+  crudContainer.classList.remove("crud-container-transition-out");
+  crudContainer.classList.add("crud-container-transition-in");
 
   title.textContent = "CRUD";
 }
