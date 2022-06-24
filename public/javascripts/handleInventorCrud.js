@@ -10,6 +10,7 @@ function createInventorDetails(inventor) {
     const buttonContainer = document.createElement("div");
     const updateButton = createButton("Update");
     const deleteButton = createButton("Delete");
+    const addButton = createButton("Add");
     const updateContainer = document.createElement("div");
     const nameInput = createInput("text", null);
     const birthInput = createInput("date", null);
@@ -38,25 +39,46 @@ function createInventorDetails(inventor) {
     
     titleParagrah.textContent = "Inventor";
     
-    nameInput.value = inventor.name;
-    if (inventor.country) countryInput.value = inventor.country;
-    if (inventor.birth) birthInput.value = inventor.birth.substr(0, 10);
-    if (inventor.death) deathInput.value = inventor.death.substr(0, 10);
-    deathInput.max = new Date().toISOString().substring(0, 10);
-  
-    updateButton.addEventListener("click", () => {
-      updateInventor({
-        inventor,
-        nameInput,
-        birthInput,
-        deathInput,
-        countryInput
-      });
-      hideCrud();
-    });
+    if (inventor !== null) {
 
-    deleteButton.addEventListener("click", () => createDeleteConfirmation(inventor));
+      nameInput.value = inventor.name;
+      if (inventor.country) countryInput.value = inventor.country;
+      if (inventor.birth) birthInput.value = inventor.birth.substr(0, 10);
+      if (inventor.death) deathInput.value = inventor.death.substr(0, 10);
+      deathInput.max = new Date().toISOString().substring(0, 10);
+    
+      updateButton.addEventListener("click", () => {
+        updateInventor({
+          inventor,
+          nameInput,
+          birthInput,
+          deathInput,
+          countryInput
+        });
+
+        hideCrud();
+      });
   
+      deleteButton.addEventListener("click", () => createDeleteConfirmation(inventor));
+
+      buttonContainer.appendChild(updateButton);
+      buttonContainer.appendChild(deleteButton);
+    }
+    else {
+      buttonContainer.appendChild(addButton);
+
+      addButton.addEventListener("click", () => {
+        addInventor({
+          nameInput,
+          birthInput,
+          deathInput,
+          countryInput
+        });
+
+        hideCrud();
+      })
+    }
+
     innerContainer.appendChild(updateContainer);
     updateContainer.appendChild(nameLabel);
     updateContainer.appendChild(birthLabel);
@@ -69,8 +91,6 @@ function createInventorDetails(inventor) {
     countryLabel.appendChild(countryInputContainer);
     countryInputContainer.appendChild(countryInput);
     innerContainer.appendChild(buttonContainer);
-    buttonContainer.appendChild(updateButton);
-    buttonContainer.appendChild(deleteButton);
   }
 
 
@@ -98,4 +118,28 @@ function createInventorDetails(inventor) {
     data.inventor.birth = data.birthInput.value;
     data.inventor.death = data.deathInput.value;
     data.inventor.country = data.countryInput.value;
+  }
+
+
+
+
+  function addInventor(data) {
+    fetch("inventory/inventor/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.nameInput.value,
+        birth: data.birthInput.value,
+        death: data.deathInput.value,
+        country: data.countryInput.value
+      }),
+    })
+      .then((response) => response.json())
+      .then((jsonData) =>  addInventorOnClient(jsonData))
+      .catch((error) => console.log(error));
+  }
+
+
+  function addInventorOnClient(data) {
+    inventorsList.push(data.inventor);
   }

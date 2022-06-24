@@ -99,16 +99,25 @@ function createList(element) {
     listDiv.addEventListener("click", (event) =>
       createItemDetails(list[event.target.dataset.index])
     );
+    createNewButton.addEventListener("click", () => {
+      createItemDetails(null);
+    });
   } else if (element === "Inventor") {
     list = inventorsList;
     listDiv.addEventListener("click", (event) =>
       createInventorDetails(list[event.target.dataset.index])
     );
+    createNewButton.addEventListener("click", () => {
+      createInventorDetails(null);
+    });
   } else {
     list = itemInstancesList;
     listDiv.addEventListener("click", (event) =>
       createItemInstanceDetails(list[event.target.dataset.index])
     );
+    createNewButton.addEventListener("click", () => {
+      createItemInstanceDetails(null);
+    });
   }
 
   for (let i = 0; i < list.length; i++) {

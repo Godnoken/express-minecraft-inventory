@@ -43,7 +43,20 @@ exports.inventor_create_get = function(req, res, next) {
 };
 
 exports.inventor_create_post = function(req, res, next) {
+  const inventor = new Inventor({
+    name: req.body.name,
+    birth: req.body.birth,
+    death: req.body.death,
+    country: req.body.country
+  });
 
+  inventor.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.status(200).json({inventor: inventor});
+  });
 };
 
 exports.inventor_update_get = function(req, res, next) {

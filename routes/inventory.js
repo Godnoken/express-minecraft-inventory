@@ -69,7 +69,7 @@ router.get('/iteminstances', item_instance_controller.iteminstance_list);
 router.get('/inventor/create', inventor_controller.inventor_create_get);
 
 // POST request for creating inventor.
-router.post('/inventor/create', inventor_controller.inventor_create_post);
+router.post('/inventor/add', inventor_controller.inventor_create_post);
 
 // GET request to delete inventor.
 router.get('/inventor/:id/delete', inventor_controller.inventor_delete_get);
