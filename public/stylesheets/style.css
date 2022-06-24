@@ -315,6 +315,7 @@ h1 {
   width: 100%;
   border-top: 0.3rem solid #464446;
   border-bottom: 0.3rem solid #b2b2b2;
+  pointer-events: none;
 }
 
 .text-input {
@@ -326,6 +327,8 @@ h1 {
   font-family: Minecraft;
   color: var(--text-color-bright);
   text-shadow: 0.1rem 0.1rem 0 #000000;
+  caret-color: #44d664;
+  cursor: default;
 }
 
 .items-container {
