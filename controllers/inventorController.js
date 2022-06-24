@@ -51,7 +51,19 @@ exports.inventor_update_get = function(req, res, next) {
 };
 
 exports.inventor_update_post = function(req, res, next) {
+  const inventor = new Inventor({
+    _id: req.body.id,
+    name: req.body.name,
+    birth: req.body.birth,
+    death: req.body.death,
+    country: req.body.country
+  })
 
+  Inventor.findByIdAndUpdate(req.body.id, inventor, {}, function (err) {
+    if (err) { return next(err); }
+       
+       res.status(200).json({});
+    });
 };
 
 exports.inventor_delete_get = function(req, res, next) {

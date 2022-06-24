@@ -46,6 +46,11 @@ function createInventorDetails(inventor) {
   
     updateButton.addEventListener("click", () => {
       updateInventor({
+        inventor,
+        nameInput,
+        birthInput,
+        deathInput,
+        countryInput
       });
       hideCrud();
     });
@@ -66,4 +71,31 @@ function createInventorDetails(inventor) {
     innerContainer.appendChild(buttonContainer);
     buttonContainer.appendChild(updateButton);
     buttonContainer.appendChild(deleteButton);
+  }
+
+
+
+
+  function updateInventor(data) {
+    fetch("inventory/inventor/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: data.inventor._id,
+        name: data.nameInput.value,
+        birth: data.birthInput.value,
+        death: data.deathInput.value,
+        country: data.countryInput.value
+      }),
+    })
+      .then(() => updateInventorOnClient(data))
+      .catch((error) => console.log(error));
+  }
+
+
+  function updateInventorOnClient(data) {
+    data.inventor.name = data.nameInput.value;
+    data.inventor.birth = data.birthInput.value;
+    data.inventor.death = data.deathInput.value;
+    data.inventor.country = data.countryInput.value;
   }
