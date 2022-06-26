@@ -26,6 +26,7 @@ function createItemInstanceDetails(itemInstance) {
     boughtLabel.textContent = "Bought";
     acquiredLabel.textContent = "Acquired";
   
+    innerContainer.classList.add("item-instance-list");
     updateContainer.classList.add("crud-update-container");
     itemSelect.classList.add("crud-update-select");
     craftedLabel.classList.add("radio-label");

@@ -28,6 +28,7 @@ function createInventorDetails(inventor) {
     deathLabel.textContent = "Death";
     countryLabel.textContent = "Country";
     
+    innerContainer.classList.add("inventor-list");
     updateContainer.classList.add("crud-update-container");
     buttonContainer.classList.add("crud-buttons-container");
     nameInput.classList.add("text-input");

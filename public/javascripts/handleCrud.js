@@ -1,19 +1,17 @@
 function goBack() {
-  const crudUpdateContainer = document.querySelector(".crud-update-container");
-  const crudDeleteContainer = document.querySelector(".crud-delete-container");
-  const buttonContainer = document.querySelector(".crud-buttons-container");
+  const innerContainer = document.querySelector(".crud-inner-container");
 
-  if (crudUpdateContainer) {
-    crudUpdateContainer.remove();
-    buttonContainer.style.display = "flex";
-  } else if (crudDeleteContainer) {
-    crudDeleteContainer.remove();
-    buttonContainer.style.display = "flex";
+  if (innerContainer.classList.contains("inventor-list")) {
+    createList("Inventor");
+  } else if (innerContainer.classList.contains("item-list")) {
+    createList("Item");
+  } else if (innerContainer.classList.contains("item-instance-list")) {
+    createList("ItemInstance");
+  } else {
+    createCrudChoices();
+    handleGoBackVisibility("hidden");
   }
-
-  handleGoBackVisibility("hidden");
 }
-
 
 function handleGoBackVisibility(choice) {
   const crudGoBack = document.querySelector(".crud-go-back");
@@ -21,33 +19,31 @@ function handleGoBackVisibility(choice) {
   crudGoBack.style.visibility = choice;
 }
 
-
-
-
 function hideCrud() {
-  const backgroundContainer = document.querySelector(".crud-background-container");
+  const backgroundContainer = document.querySelector(
+    ".crud-background-container"
+  );
   const crudContainer = document.querySelector(".crud-container");
 
-  
   backgroundContainer.classList.remove("crud-background-transition-in");
   backgroundContainer.classList.add("crud-background-transition-out");
   crudContainer.classList.remove("crud-container-transition-in");
   crudContainer.classList.add("crud-container-transition-out");
-  
+
   setTimeout(() => {
-    handleGoBackVisibility("hidden");
     backgroundContainer.style.visibility = "hidden";
   }, 500);
 }
 
-
 function showCrud() {
-  const backgroundContainer = document.querySelector(".crud-background-container");
+  const backgroundContainer = document.querySelector(
+    ".crud-background-container"
+  );
   const crudContainer = document.querySelector(".crud-container");
-  const innerContainerDiv = document.querySelector(".crud-inner-container");
+  const innerContainer = document.querySelector(".crud-inner-container");
   const title = document.querySelector(".crud-title");
 
-  removeContainerChildren(innerContainerDiv);
+  removeContainerChildren(innerContainer);
   handleGoBackVisibility("hidden");
 
   backgroundContainer.style.visibility = "visible";
@@ -59,12 +55,10 @@ function showCrud() {
   title.textContent = "CRUD";
 }
 
-
-
-
-
 function createCrudChoices() {
   const innerContainer = document.querySelector(".crud-inner-container");
+
+  removeContainerChildren(innerContainer);
 
   const inventorsButton = createButton("Inventors");
   const itemsButton = createButton("Items");
@@ -81,15 +75,14 @@ function createCrudChoices() {
   innerContainer.appendChild(itemInstancesButton);
 }
 
-
-
-
 function createList(element) {
-  const innerContainerDiv = document.querySelector(".crud-inner-container");
+  const innerContainer = document.querySelector(".crud-inner-container");
   const listDiv = document.createElement("div");
   const createNewButton = createButton(`New ${element}`);
 
-  removeContainerChildren(innerContainerDiv);
+  innerContainer.removeAttribute("class");
+  innerContainer.classList.add("crud-inner-container");
+  removeContainerChildren(innerContainer);
   handleGoBackVisibility("visible");
 
   let list;
@@ -136,17 +129,13 @@ function createList(element) {
 
   listDiv.classList.add("crud-list");
 
-  innerContainerDiv.appendChild(listDiv);
-  innerContainerDiv.appendChild(createNewButton);
+  innerContainer.appendChild(listDiv);
+  innerContainer.appendChild(createNewButton);
 }
-
-
-
 
 function createDeleteConfirmation(elementData) {
   const innerContainer = document.querySelector(".crud-inner-container");
 
-  handleGoBackVisibility("visible");
   removeContainerChildren(innerContainer);
 
   const deleteContainer = document.createElement("div");
