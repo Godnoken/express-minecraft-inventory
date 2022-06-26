@@ -20,6 +20,7 @@ function readItemInfo(event, list) {
 
     let item;
     let itemInstanceInfo;
+   
     
     if (list === itemList) {
         item = list.find((item) => item._id === event.target.dataset.id);
@@ -34,14 +35,13 @@ function readItemInfo(event, list) {
         });
     }
     
-    
     toolTipContainer.style.left = event.x + 15 + "px";
     toolTipContainer.style.top = event.y + "px";
     
     name.textContent = item.name;
     description.textContent = item.description;
     value.textContent = item.value;
-    inventor.textContent = item.inventor.name;
+    item.inventor !== null ? inventor.textContent = item.inventor.name : inventor.textContent = "Inventor unknown";
     type.textContent = item.type[0].name;
     if (list === itemInstancesList) {
         let itemAcquired = Math.abs(Math.ceil((new Date(itemInstanceInfo.acquired).getTime() - new Date().getTime()) / (1000 * 3600 * 24)));
