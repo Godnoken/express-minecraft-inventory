@@ -142,7 +142,6 @@ function createInventorDetails(inventor) {
     for (let i = 0; i < inventorsList.length; i++) {
       if (inventorsList[i]._id === inventorId) {
         inventorsList.splice(i, 1);
-        console.log(inventorsList)
         break;
       }
     }

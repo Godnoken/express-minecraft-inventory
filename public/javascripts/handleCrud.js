@@ -25,6 +25,8 @@ function hideCrud() {
   );
   const crudContainer = document.querySelector(".crud-container");
 
+  handleGoBackVisibility("hidden");
+
   backgroundContainer.classList.remove("crud-background-transition-in");
   backgroundContainer.classList.add("crud-background-transition-out");
   crudContainer.classList.remove("crud-container-transition-in");
