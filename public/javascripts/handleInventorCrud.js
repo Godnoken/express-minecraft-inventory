@@ -124,6 +124,33 @@ function createInventorDetails(inventor) {
 
 
 
+  function deleteInventor(inventorId) {
+    fetch("inventory/inventor/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: inventorId,
+      }),
+    })
+      .then(() => deleteInventorOnClient(inventorId))
+      .catch((error) => console.log(error));
+  }
+
+
+  function deleteInventorOnClient(inventorId) {
+
+    for (let i = 0; i < inventorsList.length; i++) {
+      if (inventorsList[i]._id === inventorId) {
+        inventorsList.splice(i, 1);
+        console.log(inventorsList)
+        break;
+      }
+    }
+  }
+
+
+
+
   function addInventor(data) {
     fetch("inventory/inventor/add", {
       method: "POST",
@@ -136,7 +163,7 @@ function createInventorDetails(inventor) {
       }),
     })
       .then((response) => response.json())
-      .then((jsonData) =>  addInventorOnClient(jsonData))
+      .then((jsonData) => addInventorOnClient(jsonData))
       .catch((error) => console.log(error));
   }
 

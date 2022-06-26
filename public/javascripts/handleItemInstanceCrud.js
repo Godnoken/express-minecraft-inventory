@@ -110,7 +110,6 @@ function createItemInstanceDetails(itemInstance) {
 
 
   function deleteItemInstance(itemInstanceId) {
-    console.log(itemInstanceId)
     fetch("inventory/iteminstance/delete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

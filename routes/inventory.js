@@ -75,7 +75,7 @@ router.post('/inventor/add', inventor_controller.inventor_create_post);
 router.get('/inventor/:id/delete', inventor_controller.inventor_delete_get);
 
 // POST request to delete inventor.
-router.post('/inventor/:id/delete', inventor_controller.inventor_delete_post);
+router.post('/inventor/delete', inventor_controller.inventor_delete_post);
 
 // POST request to update inventor.
 router.post('/inventor/update', inventor_controller.inventor_update_post);

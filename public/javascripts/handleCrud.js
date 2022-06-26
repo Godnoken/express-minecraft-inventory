@@ -146,10 +146,22 @@ function createDeleteConfirmation(elementData) {
 
   deleteContainer.classList.add("crud-delete-container");
 
-  deleteConfirmButton.addEventListener("click", () => {
-    deleteItemInstance(elementData._id);
-    hideCrud();
-  });
+  if (innerContainer.classList.contains("inventor-list")) {
+    deleteConfirmButton.addEventListener("click", () => {
+      deleteInventor(elementData._id);
+      hideCrud();
+    });
+  } else if (innerContainer.classList.contains("item-list")) {
+    deleteConfirmButton.addEventListener("click", () => {
+      deleteItem(elementData._id);
+      hideCrud();
+    });
+  } else if (innerContainer.classList.contains("item-instance-list")) {
+    deleteConfirmButton.addEventListener("click", () => {
+      deleteItemInstance(elementData._id);
+      hideCrud();
+    });
+  }
 
   innerContainer.appendChild(deleteContainer);
   deleteContainer.appendChild(deleteQuestionP);
